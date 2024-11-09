@@ -75,60 +75,25 @@ namespace Calculadora
 
         }
 
-        private void add_sum(object sender, EventArgs e)
+        private void add_oper(object sender, EventArgs e)
         {
-            //Si ya existe un valor que no sea numerico o el punto 
-            bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
-
-            if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints)
+            Button button = sender as Button;
+            if (resultadoFinal == false)
             {
-                txtOutput.Text += " + ";
-            }
-            else
-            {
-                txtOutput.Text += "";
+                bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
+                if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints && button != null)
+                {
+                    txtOutput.Text += button.Text;
+                }
+                else
+                {
+                    txtOutput.Text = "";
+                    resultadoFinal = false;
+                    if (button != null) { txtOutput.Text += button.Text; }
+                }
             }
         }
-
-        private void add_sub(object sender, EventArgs e)
-        {
-            bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
-            if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints)
-            {
-                txtOutput.Text += " - ";
-            }
-            else
-            {
-                txtOutput.Text += "";
-            }
-        }
-
-        private void add_div(object sender, EventArgs e)
-        {
-            bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
-            if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints)
-            {
-                txtOutput.Text += " / ";
-            }
-            else
-            {
-                txtOutput.Text += "";
-            }
-        }
-
-        private void add_mul(object sender, EventArgs e)
-        {
-            bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
-            if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints)
-            {
-                txtOutput.Text += " x ";
-            }
-            else
-            {
-                txtOutput.Text += "";
-            }
-        }
-
+       
         private void equals(Object sender, EventArgs e)
         {
             string[] partes = txtOutput.Text.Split(" ");

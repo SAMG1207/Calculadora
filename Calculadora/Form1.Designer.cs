@@ -65,7 +65,7 @@
             div_btn.TabIndex = 4;
             div_btn.Text = "/";
             div_btn.UseVisualStyleBackColor = false;
-            div_btn.Click += add_div;
+            div_btn.Click += add_oper;
             // 
             // mul_btn
             // 
@@ -76,7 +76,7 @@
             mul_btn.TabIndex = 5;
             mul_btn.Text = "X";
             mul_btn.UseVisualStyleBackColor = false;
-            mul_btn.Click += add_mul;
+            mul_btn.Click += add_oper;
             // 
             // add_btn
             // 
@@ -98,7 +98,7 @@
             sub_btn.TabIndex = 7;
             sub_btn.Text = "-";
             sub_btn.UseVisualStyleBackColor = false;
-            sub_btn.Click += add_sub;
+            sub_btn.Click += add_oper;
             // 
             // clear_btn
             // 
