@@ -117,7 +117,7 @@ namespace Calculadora
                             resultadoFinal = true;
                             break;
                         
-                        case "x":
+                        case "X":
                             txtOutput.Text=(num1 * num2).ToString();
                             resultadoFinal = true;
                             break;
