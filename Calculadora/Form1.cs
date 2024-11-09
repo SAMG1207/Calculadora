@@ -83,7 +83,7 @@ namespace Calculadora
                 bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
                 if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints && button != null)
                 {
-                    txtOutput.Text += button.Text;
+                    txtOutput.Text += " "+button.Text+" ";
                 }
                 else
                 {

@@ -87,7 +87,7 @@
             add_btn.TabIndex = 6;
             add_btn.Text = "+";
             add_btn.UseVisualStyleBackColor = false;
-            add_btn.Click += add_sum;
+            add_btn.Click += add_oper;
             // 
             // sub_btn
             // 
