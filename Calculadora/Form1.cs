@@ -5,19 +5,28 @@ namespace Calculadora
     public partial class Form1 : Form
     {
         string operador = "";
-        double num1 = 0;
-        double num2 = 0;
         bool resultadoFinal = false;
         public Form1()
         {
             InitializeComponent();
         }
+        private void txtOutput_KeyPress(object sender, KeyPressEventArgs e)
+        {
 
+            if (e.KeyChar == (char)Keys.Back || e.KeyChar == (char)Keys.Tab)
+            {
+                return; // No bloquear estas teclas
+            }
+            if (char.IsDigit(e.KeyChar) || e.KeyChar == '.' || e.KeyChar == '+' || e.KeyChar == '-' || e.KeyChar == '*' || e.KeyChar == '/')
+            {
+                return; // Permitir estos caracteres
+            }
+            e.Handled = true;
+        }
         private void clear_btn_Click(object sender, EventArgs e)
         {
-            txtOutput.Text = "0";
-            num1 = 0;
-            num2 = 0;
+            txtOutput.Text = "";
+            resultadoFinal = false;
         }
 
         private void back_btn_Click(object sender, EventArgs e)
@@ -25,7 +34,8 @@ namespace Calculadora
             bool firstNumberisNegative = txtOutput.Text.Length == 2 && txtOutput.Text.StartsWith("-");
             if (txtOutput.Text.Length == 1 || firstNumberisNegative)
             {
-                txtOutput.Text = "0";
+                txtOutput.Text = "";
+                resultadoFinal = false;
             }
             else
             {
@@ -78,22 +88,46 @@ namespace Calculadora
         private void add_oper(object sender, EventArgs e)
         {
             Button button = sender as Button;
+
             if (resultadoFinal == false)
             {
-                bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.');
-                if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints && button != null)
+                bool onlyNumbersAndPoints = txtOutput.Text.All(c => char.IsDigit(c) || c == '.' || c == '-');
+
+                if (txtOutput.Text.Length == 0 && button.Text == "-")
                 {
-                    txtOutput.Text += " "+button.Text+" ";
+                    txtOutput.Text = "-"; // Agregar signo negativo al principio
                 }
+                else if (txtOutput.Text.Length == 0 && button.Text != "-")
+                {
+                    txtOutput.Text = "";
+                }
+                // Si el texto tiene algo y presionamos "-", y el último carácter es un operador (espacio)
+                else if (txtOutput.Text.Length > 0 && button.Text == "-" && txtOutput.Text.EndsWith(" "))
+                {
+                    txtOutput.Text += "-"; // Si hay un operador y el usuario presiona "-", lo agregamos
+                }
+                // Si ya hay un número o punto en la pantalla, agregamos el operador con espacios para separar
+                else if (txtOutput.Text.Length > 0 && onlyNumbersAndPoints && button != null)
+                {
+                    txtOutput.Text += " " + button.Text + " "; // Agregar el operador (por ejemplo: "5 +")
+                }
+                // Si no hay nada válido para agregar, borra la pantalla y permite iniciar de nuevo
                 else
                 {
                     txtOutput.Text = "";
                     resultadoFinal = false;
-                    if (button != null) { txtOutput.Text += button.Text; }
+
+                    if (button != null)
+                    {
+                        txtOutput.Text += button.Text; // Agregar el operador
+                    }
                 }
             }
         }
-       
+
+
+
+
         private void equals(Object sender, EventArgs e)
         {
             string[] partes = txtOutput.Text.Split(" ");
